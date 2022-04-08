@@ -172,8 +172,17 @@ int main(int argc, char **argv)
 #elif __amigaos__
 	strcpy(filename, "PROGDIR:goattrk2.cfg");
 #else
-	strcpy(filename, getenv("HOME"));
-	strcat(filename, "/.goattrk/gt2stereo.cfg");
+	char* xdg_home = getenv("XDG_CONFIG_HOME");
+	if (xdg_home)
+	{
+		strcpy(filename, xdg_home);
+		strcat(filename, "/goattrk/gt2stereo.cfg");
+	}
+	else
+	{
+		strcpy(filename, getenv("HOME"));
+		strcat(filename, "/.config/goattrk/gt2stereo.cfg");
+	}
 #endif
 	configfile = fopen(filename, "rt");
 	if (configfile)
@@ -599,8 +608,17 @@ int main(int argc, char **argv)
 #ifdef __amigaos__
 	strcpy(filename, "PROGDIR:gtskins.bin");
 #else
-	strcpy(filename, getenv("HOME"));
-	strcat(filename, "/.goattrk");
+	xdg_home = getenv("XDG_CONFIG_HOME");
+	if (xdg_home)
+	{
+		strcpy(filename, xdg_home);
+		strcat(filename, "/goattrk");
+	}
+	else
+	{
+		strcpy(filename, getenv("HOME"));
+		strcat(filename, "/.config/goattrk");
+	}
 	mkdir(filename, S_IRUSR | S_IWUSR | S_IXUSR);
 	strcat(filename, "/gtskins.bin");
 #endif
@@ -622,8 +640,17 @@ int main(int argc, char **argv)
 #ifdef __amigaos__
 	strcpy(filename, "PROGDIR:goattrk2.cfg");
 #else
-	strcpy(filename, getenv("HOME"));
-	strcat(filename, "/.goattrk");
+	xdg_home = getenv("XDG_CONFIG_HOME");
+	if (xdg_home)
+	{
+		strcpy(filename, xdg_home);
+		strcat(filename, "/goattrk");
+	}
+	else
+	{
+		strcpy(filename, getenv("HOME"));
+		strcat(filename, "/.config/goattrk");
+	}
 	mkdir(filename, S_IRUSR | S_IWUSR | S_IXUSR);
 	strcat(filename, "/gt2stereo.cfg");
 #endif
